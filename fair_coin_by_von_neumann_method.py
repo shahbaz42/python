@@ -9,9 +9,10 @@ John Von Neumann method
 '''
 
 import random
+from tqdm import tqdm
 
 BIAS_PARAMETER = 0.8
-NUMBER_OF_TRIALS = 100000
+NUMBER_OF_TRIALS = 1000000
 
 def biased_coin():
     '''
@@ -30,7 +31,7 @@ def experiment_with(coin_function, number_of_trials):
     returns the outcome in form of a freq_data dictionary
     '''
     freq_data ={}
-    for _ in range(number_of_trials):
+    for _ in tqdm(range(number_of_trials),desc="Running..."):
         outcome = coin_function()
         if outcome in freq_data:
             freq_data[outcome] += 1
