@@ -1,0 +1,1 @@
+{"name":"Local: insertion_sort_recursive","url":"c:\\Users\\Shahbaz\\Desktop\\python\\PDSA\\insertion_sort_recursive.py","tests":[{"id":1663691029472,"input":"1 3 4 2 5","output":"1 2 3 4 5"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Shahbaz\\Desktop\\python\\PDSA\\insertion_sort_recursive.py","group":"local","local":true}
