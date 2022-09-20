@@ -3,6 +3,9 @@ def selection_sort(L):
 
     n = len(L)
 
+    if n<1 :
+        return(L)
+
     for i in range(n):
         # i = {0,1,2,3,4}
         index = i
