@@ -1,4 +1,4 @@
-class Node:
+class LinkedList:
     def __init__(self, v=None) :
         self.value = v
         self.next = None
@@ -25,7 +25,7 @@ class Node:
             self.value = v
         
         elif self.next == None:
-            self.next = Node(v)
+            self.next = LinkedList(v)
         
         else :
             self.next.append(v)
@@ -39,7 +39,7 @@ class Node:
         while temp.next != None :
             temp = temp.next
 
-        temp.next = Node(v)
+        temp.next = LinkedList(v)
         return
 
     def insert(self, v):
@@ -47,7 +47,7 @@ class Node:
             self.value = v
             return
 
-        newnode = Node(v)
+        newnode = LinkedList(v)
         (newnode.value, self.value) = (self.value, newnode.value)
 
         newnode.next = self.next
@@ -75,16 +75,71 @@ class Node:
             self.next.delete(v)
             if self.next.value == None:
                 self.next = None
+    
+    def reverse(self):
+        if self.next == None : #if linked list is having single node
+            return
+        elif self.next.next == None : # if linked list is having two nodes
+            (self.next.value, self.value) = (self.value, self.next.value)
+            return
 
-ll = Node(1)
-ll.append(2)
-ll.insert(0)
-ll.append(3)
-ll.append(4)
-ll.appendi(4)
-ll.append(5)
-ll.delete(4)
-ll.append(6)
-ll.delete(6)
+        (prev, current, next, second) = (None, self, self.next, self.next)
 
-print(ll)
+        while (current is not None):
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
+
+        """
+        before plumbing : 
+
+        self                    prev ; next, current = None
+        |                       |
+        1 <-- 2 <-- 3 <-- 4 <-- 5
+              |
+              second
+
+        after plumbing :
+
+        self    ---2---->---------
+         |      |                |
+        (5)     2 <-- 3 <-- 4   (1)---> None 
+         |                  |      
+         ------1-->----------
+
+        """
+
+        (self.value, prev.value) = (prev.value, self.value) # swapping self with last node
+        self.next = prev.next #1
+        second.next = prev #2
+        prev.next = None
+        
+        return
+
+ll = LinkedList()
+print("Empty linked list :", ll)
+
+ll.reverse()
+print("Reverse of empty linked list :", ll)
+
+ll.append(0)
+print("append 0 :", ll)
+
+ll.reverse()
+print("reverse :", ll)
+
+ll.append(1)
+print("append 1 :", ll)
+
+ll.reverse()
+print("reverse :", ll)
+
+ll.insert(2)
+print("insert 2 :", ll)
+
+ll.reverse()
+print("reverse :", ll)
+
+ll.delete(1)
+print("delete 1 :", ll)
