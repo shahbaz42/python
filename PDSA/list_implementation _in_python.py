@@ -4,6 +4,8 @@ class Node:
         self.next = None
     
     def __str__(self):
+        if self.isEmpty():
+            return "[]"
         temp = self
         output = "["
         while(temp.next != None):
@@ -35,7 +37,7 @@ class Node:
         
         temp = self
         while temp.next != None :
-            temp = self.next
+            temp = temp.next
 
         temp.next = Node(v)
         return
@@ -74,12 +76,15 @@ class Node:
             if self.next.value == None:
                 self.next = None
 
-l1 = Node()
-print(l1.isEmpty())
-l1.appendi(5)
-l1.append(6)
-l1.insert(4)
-l1.append(3)
-print(l1)
-l1.delete(3)
-print(l1)
+ll = Node(1)
+ll.append(2)
+ll.insert(0)
+ll.append(3)
+ll.append(4)
+ll.appendi(4)
+ll.append(5)
+ll.delete(4)
+ll.append(6)
+ll.delete(6)
+
+print(ll)
