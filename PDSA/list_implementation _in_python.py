@@ -1,5 +1,13 @@
 class LinkedList:
     def __init__(self, v=None) :
+        
+        if type(v) == list :
+            self.value = None
+            self.next = None
+            for elm in v :
+                self.append(elm)
+            return
+
         self.value = v
         self.next = None
     
@@ -143,3 +151,9 @@ print("reverse :", ll)
 
 ll.remove(1)
 print("remove 1 :", ll)
+
+ll_2 = LinkedList([1,2,3,4,"monkey",5,6,7,8,9])
+print("init ll_2 using a list : ", ll_2)
+
+ll_2.remove("monkey")
+print("remove monkey :",ll_2)
