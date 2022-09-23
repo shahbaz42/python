@@ -53,16 +53,16 @@ class LinkedList:
         newnode.next = self.next
         self.next = newnode
 
-    def delete(self, v):
+    def remove(self, v):
         """
-        delete the first occurance of v in the list.
+        remove the first occurance of v in the list.
         """
         # | 4 | 5 | 6 | 3 |
         # if list is empty
         if self.isEmpty():
             return
 
-        # if we have to delete first node
+        # if we have to remove first node
         if self.value == v :
             self.value = None
             if self.next != None :
@@ -70,9 +70,9 @@ class LinkedList:
                 self.next = self.next.next
             return
 
-        # if we have to delete and middle element
+        # if we have to remove and middle element
         if self.next != None :
-            self.next.delete(v)
+            self.next.remove(v)
             if self.next.value == None:
                 self.next = None
     
@@ -141,5 +141,5 @@ print("insert 2 :", ll)
 ll.reverse()
 print("reverse :", ll)
 
-ll.delete(1)
-print("delete 1 :", ll)
+ll.remove(1)
+print("remove 1 :", ll)
