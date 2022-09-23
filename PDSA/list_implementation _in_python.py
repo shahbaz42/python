@@ -1,3 +1,6 @@
+from ast import Try
+
+
 class LinkedList:
     def __init__(self, v=None) :
         
@@ -68,7 +71,7 @@ class LinkedList:
         # | 4 | 5 | 6 | 3 |
         # if list is empty
         if self.isEmpty():
-            return
+            raise Exception("Can't remove linked list is empty.")
 
         # if we have to remove first node
         if self.value == v :
@@ -157,3 +160,15 @@ print("init ll_2 using a list : ", ll_2)
 
 ll_2.remove("monkey")
 print("remove monkey :",ll_2)
+
+print("remove from empty linked list :")
+ll_3 = LinkedList()
+try :
+    ll_3.remove(1)
+except Exception as e:
+    print(e)
+
+ll_3.append("Monkey")
+print("append monkey : ", ll_3)
+
+
