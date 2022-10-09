@@ -6,9 +6,7 @@ class Queue:
         return(str(self.Q))
 
     def isEmpty(self):
-        if len(self.Q)==0:
-            return True
-        return False
+        return len(self.Q) == 0
     
     def size(self):
         return len(self.Q)
@@ -21,7 +19,6 @@ class Queue:
             v = self.Q[0]
             self.Q = self.Q[1:]
             return v
-
         raise Exception("Can't remove Queue is empty.")
 
 q1 = Queue()
