@@ -55,7 +55,7 @@ def BFS(aList, v):
 def components(aList):
     """
     Given an adjacency list aList
-    this function returns a component dictionary.
+    this function returns a component dictionary using BFS.
     """
 
     (components, compid) = ({}, 0)
