@@ -14,15 +14,24 @@ class Unweighted_graph:
         return(str(self.aList))
     
     def has_vertex(self, vertex):
+        """
+        This method checks if a vertex is present in hgraph or not.
+        """
         return (0 <= vertex < self.vertices)
     
     def has_edge(self, start, end):
+        """
+        This method checks if an edge is present in graph or not.
+        """
         if (self.has_vertex(start) and self.has_vertex(end)):
             if end in self.aList[start] :
                 return True
         return False
     
     def add_edge(self, start, end):
+        """
+        This method add an edge to the graph.
+        """
         if (self.has_vertex(start) and self.has_vertex(end)):
             if not self.has_edge(start, end):
                 self.aList[start].append(end)
@@ -32,11 +41,17 @@ class Unweighted_graph:
         return False
     
     def add_edges(self, edges):
+        """
+        This method adds multiple edges to the graph
+        """
         for (start, end) in edges:
             self.add_edge(start, end)
         return 
     
     def remove_edge(self, start, end):
+        """
+        
+        """
         if (self.has_vertex(start) and self.has_vertex(end)):
             if self.has_edge(start, end):
                 self.aList[start].remove(end)
@@ -56,9 +71,9 @@ class Unweighted_graph:
         """
         self.visited, self.parent = {} , {}
 
-        for i in self.aList.keys():
-            self.visited[i] = False
-            self.parent[i] = -1
+        self.visited = {t:False for t in self.aList.keys()}
+        self.parent = {t:-1 for t in self.aList.keys()}
+
         return
     
     def __DFS_recursive(self, v):
@@ -75,9 +90,38 @@ class Unweighted_graph:
         return
     
     def DFS(self, v):
+        """
+        This method performs Depth first search and 
+        returns visited dict of all vertices that can be reached from vertex v
+        returns parent dictionary of recorded path.
+        """
         self.__DFS_init()
         self.__DFS_recursive(v)
         return (self.visited, self.parent)
+    
+    def BFS(self, v):
+        """
+        This method performs Breadth first search and
+        returns visited dict of all vertices that can be reached from vertex v
+        returns parent dictionary of recorded path.
+        """
+        visited = {t:False for t in self.aList.keys()}
+        parent = {t:-1 for t in self.aList.keys()}
+
+        q = []
+
+        visited[v] = True 
+        q.append(v)
+
+        while(len(q)>0):
+            c = q.pop(0)
+            for k in self.aList[c]:
+                if not visited[k] :
+                    visited[k] = True
+                    parent[k] = c
+                    q.append(k)
+        return visited, parent
+
 
 edges = [ (0,1), (0,4), (2,3), (2,6), (2,7), (3,7), (4,8), (4,9), (6,7), (6,10), (7,10), (7,11), (8,9)]
 max_vertex = max([max(i) for i in edges])
@@ -85,3 +129,4 @@ max_vertex = max([max(i) for i in edges])
 g1 = Unweighted_graph(max_vertex + 1, directed=False)
 g1.add_edges(edges)
 print(g1)
+print(g1.BFS(5))
