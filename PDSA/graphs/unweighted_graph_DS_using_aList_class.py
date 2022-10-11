@@ -139,6 +139,24 @@ class Unweighted_graph:
             
         path.reverse()
         return path
+    
+    def find_path_DFS(self, u, v):
+        """
+        This method takes a starting vertex u and and ending vertex u and
+        performs DFS and returns path to reach v from u
+        """
+        visited, parent = self.DFS(u)
+        path = []
+
+        if not visited[v]:
+            return None
+        
+        while v != -1 :
+            path.append(v)
+            v = parent[v]
+        
+        path.reverse()
+        return path
 
 
 edges = [ (0,1), (0,4), (2,3), (2,6), (2,7), (3,7), (4,8), (4,9), (6,7), (6,10), (7,10), (7,11), (8,9)]
@@ -147,5 +165,5 @@ max_vertex = max([max(i) for i in edges])
 g1 = Unweighted_graph(max_vertex + 1, directed=False)
 g1.add_edges(edges)
 print(g1)
-print(g1.BFS(0))
-print(g1.find_path_BFS(1,8))
+print(g1.DFS(1))
+print(g1.find_path_DFS(1,8))
