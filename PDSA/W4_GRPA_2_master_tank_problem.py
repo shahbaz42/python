@@ -1,10 +1,7 @@
 class graph:
     def __init__(self, vertices, edges):
-        self.aList = {} #adjacency list
+        self.aList = { t:[] for t in vertices} 
         self.vertices = vertices
-
-        for i in vertices :
-            self.aList[i] = []
 
         for (u,v) in edges :
             self.aList[u].append(v)
@@ -13,10 +10,7 @@ class graph:
         return(str(self.aList))
     
     def BFS(self, v):
-        visited = {}
-
-        for i in self.vertices:
-            visited[i] = False
+        visited = {t:False for t in self.vertices}
         
         visited[v] = True
         q = [v]
@@ -30,11 +24,7 @@ class graph:
         return visited
 
     def findMasterTank(self):
-        indegree = {}
-
-        # initialise indegree
-        for i in self.vertices :
-            indegree[i] = 0
+        indegree = {t:0 for t in self.vertices}
 
         # calculating indegree of each vertices        
         for (u,v) in self.aList.items():
