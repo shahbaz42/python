@@ -50,7 +50,7 @@ class Unweighted_graph:
     
     def remove_edge(self, start, end):
         """
-        
+        This method removes an edge from the graph
         """
         if (self.has_vertex(start) and self.has_vertex(end)):
             if self.has_edge(start, end):
@@ -61,6 +61,9 @@ class Unweighted_graph:
         return False
     
     def remove_edges(self, edges):
+        """
+        This method removes multiple edges from the graph.
+        """
         for(start, end) in edges :
             self.remove_edge(start, end)
         return
@@ -157,13 +160,34 @@ class Unweighted_graph:
         
         path.reverse()
         return path
+    
+    def components(self):
+        """
+        This method assigns components to each connected part of the graph and 
+        returns the components dict
+        """
+        # create a components dict and compid counter
+        # start DFS from min vertex and assign component 0 to alll connected items
+        # for all vertices with compif -1 start bfs from min of them and repeat till all comoponents are visited 
 
+        (components, compid) = ({t:-1 for t in self.aList.keys()}, 0)
+        unexplored = [i for i in components.keys() if components[i] == -1]
+
+        self.DFS(min(unexplored))
+        while(len(unexplored) > 0 ):
+            self.DFS(min(unexplored))
+            for i in unexplored :
+                if self.visited[i]:
+                    components[i] = compid
+            compid += 1
+            unexplored = [ i for i in unexplored if components[i] == -1]
+        
+        return components
 
 edges = [ (0,1), (0,4), (2,3), (2,6), (2,7), (3,7), (4,8), (4,9), (6,7), (6,10), (7,10), (7,11), (8,9)]
 max_vertex = max([max(i) for i in edges])
 
 g1 = Unweighted_graph(max_vertex + 1, directed=False)
 g1.add_edges(edges)
-print(g1)
-print(g1.DFS(1))
-print(g1.find_path_DFS(1,8))
+# print(g1)
+print(g1.components())
