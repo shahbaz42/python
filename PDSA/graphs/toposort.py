@@ -49,6 +49,10 @@ class Unweighted_graph:
         return 
 
     def toposort(self):
+        """
+        This method is applicable for Direceted acyclic graphs (DAG) and 
+        returns topological sorted sequence array
+        """
         (indegree, toposort_seq) = ({t:0 for t in  range(self.vertices)}, [])
         
         for i in self.aList:
