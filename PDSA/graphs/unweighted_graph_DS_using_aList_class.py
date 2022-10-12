@@ -73,9 +73,10 @@ class Unweighted_graph:
         This function initialises visited and parent dictionaries
         """
         self.visited, self.parent = {} , {}
-
         self.visited = {t:False for t in self.aList.keys()}
         self.parent = {t:-1 for t in self.aList.keys()}
+        self.pre = {t:-1 for t in self.aList.keys()}
+        self.post = {t:-1 for t in self.aList.keys()}
 
         return
     
@@ -183,11 +184,44 @@ class Unweighted_graph:
             unexplored = [ i for i in unexplored if components[i] == -1]
         
         return components
+    
+    def __DFS_tree_pre_post(self, v, count):
+        """
+        This recursive method is for performin DFS and calculating
+        pre, post, visited dict
+        """
+        self.visited[v] = True
+        self.pre[v] = count
+        count += 1
+
+        for i in self.aList[v]:
+            if not self.visited[i]:
+                count = self.__DFS_tree_pre_post(i, count)
+        self.post[v] = count
+        count += 1
+
+        return count
+    
+    def DFS_forest(self, v):
+        """
+        This method takes a vertex and performs DFS and
+        returns visted, pre, and post dict
+        """
+        self.__DFS_init()
+        count = 0
+        count = self.__DFS_tree_pre_post(v,count)
+
+        unvisited = [i for i in self.aList.keys() if self.visited[i] == False]
+
+        while(len(unvisited)>0):
+            count = self.__DFS_tree_pre_post(min(unvisited), count)
+            unvisited = [i for i in self.aList.keys() if self.visited[i] == False]
+
+        return self.visited, self.pre, self.post            
 
 edges = [ (0,1), (0,4), (2,3), (2,6), (2,7), (3,7), (4,8), (4,9), (6,7), (6,10), (7,10), (7,11), (8,9)]
 max_vertex = max([max(i) for i in edges])
 
 g1 = Unweighted_graph(max_vertex + 1, directed=False)
 g1.add_edges(edges)
-# print(g1)
-print(g1.components())
+print(g1.DFS_forest(0))
