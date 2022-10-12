@@ -218,11 +218,42 @@ class Unweighted_graph:
             count = self.__DFS_tree_pre_post(min(unvisited), count)
             unvisited = [i for i in self.aList.keys() if self.visited[i] == False]
 
-        return self.visited, self.parent, self.pre, self.post            
+        return self.visited, self.parent, self.pre, self.post
 
-edges = [ (0,1), (0,4), (2,3), (2,6), (2,7), (3,7), (4,8), (4,9), (6,7), (6,10), (7,10), (7,11), (8,9)]
+    def toposort(self):
+        """
+        This method is applicable for Direceted acyclic graphs (DAG) and 
+        returns topological sorted sequence array
+        """
+        # init topological seq, init indegree
+        # initialise indegree
+        # maintain queue of all bvertices with indegree 0
+        # pop and append to toposort_seq
+        (indegree, toposort_seq) = ({t:0 for t in range(self.vertices)}, [])
+        
+        for i in self.aList.keys():
+            for j in self.aList[i]:
+                indegree[j] += 1
+        
+        q = [i for i in range(self.vertices) if indegree[i] == 0]
+
+        while(len(q)>0):
+            c = q.pop(0)
+            toposort_seq.append(c)
+            indegree[c] = indegree[c]-1
+            for i in self.aList[c]:
+                indegree[i] = indegree[i] - 1
+            q = [i for i in range(self.vertices) if indegree[i] == 0]
+        
+        return toposort_seq
+
+edges = [(0,2),(0,3),(0,4),(1,2),(1,7),(2,5),(3,5),(3,7),(4,7),(5,6),(6,7)]
+
 max_vertex = max([max(i) for i in edges])
+min_vertex = min([min(i) for i in edges])
 
-g1 = Unweighted_graph(max_vertex + 1, directed=False)
+g1 = Unweighted_graph(max_vertex + 1)
 g1.add_edges(edges)
-print(g1.DFS_forest(0))
+
+print(g1.toposort())
+
