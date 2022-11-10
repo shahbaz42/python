@@ -1,3 +1,5 @@
+import numpy as np
+
 class Weighted_graph:
     def __init__(self, vertices, directed=True):
         """
@@ -5,7 +7,7 @@ class Weighted_graph:
         """
         self.vertices = vertices
         self.directed = directed
-        self.aMat = [[[0,0] for _ in range(self.vertices)] for _ in range(self.vertices)]
+        self.aMat = np.zeros((vertices, vertices, 2), dtype=int)
         # self.__DFS_init()
         # self.__BFS_init()
         return
