@@ -175,3 +175,8 @@ matches = pattern.finditer(text_to_search)
 for match in matches :
     print(match)
 print()
+
+# ignore case using re.IGNORECASE
+pattern = re.compile(r'start', re.IGNORECASE)
+matches = pattern.search(sentence)
+print(matches)
